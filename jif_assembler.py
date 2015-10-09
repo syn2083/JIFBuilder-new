@@ -146,7 +146,7 @@ class JIFBuilder(Base):
                                                                                          cur_sheet=str(t).zfill(2),
                                                                                          total_sheet=str
                                                                                          (num_sheets[i - 1]).zfill(2)))
-        filename = path.join(out_path, job_string + ".txt")
+        filename = path.join(out_path, "feed_" + job_string + ".txt")
         with open(filename, 'w') as fp:
             fp.write(out_str.join(sheet_strings))
         fp.close()
@@ -160,7 +160,7 @@ class JIFBuilder(Base):
         for i in range(1, self.num_pieces + 1):
             piece_strings.append("{jobid}{pieceid}".format(jobid=job_string, pieceid=str(i).zfill(6)))
 
-        filename = path.join(out_path, job_string + ".txt")
+        filename = path.join(out_path, "exit_" + job_string + ".txt")
         with open(filename, 'w') as fp:
             fp.write(out_str.join(piece_strings))
         fp.close()
