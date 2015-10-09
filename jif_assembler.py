@@ -34,7 +34,6 @@ class JIFBuilder(Base):
     feed_data = 0
     exit_data = 0
 
-
     def id_to_int(self):
         try:
             return int(self.job_id)
