@@ -105,7 +105,8 @@ class JIFBuilder(Base):
             jif_strings.append(" <JobName>{jobname}</JobName>".format(jobname=choice(jname)))
             jif_strings.append(" <AccountID>{accountid}</AccountID>".format(accountid=choice(acct)))
             jif_strings.append(" <StartSequence>000001</StartSequence>")
-            jif_strings.append(" <EndSequence>{lastnumber}</EndSequence>".format(lastnumber=str(self.num_pieces).zfill(6)))
+            jif_strings.append(" <EndSequence>{lastnumber}</EndSequence>".format(lastnumber=str(self.num_pieces)
+                                                                                 .zfill(6)))
             jif_strings.append(" <PieceCount>{piececount}</PieceCount>".format(piececount=str(self.num_pieces)))
             jif_strings.append(" <CreationDate>{creation}</CreationDate>".format(creation=self.creation))
             jif_strings.append(" <JobDeadLine>{deadline}</JobDeadLine>".format(deadline=self.deadline))
@@ -141,10 +142,10 @@ class JIFBuilder(Base):
         for i in range(1, self.num_pieces + 1):
             for t in range(1, num_sheets[i - 1] + 1):
                 sheet_strings.append("{jobid}{pieceid}{cur_sheet}{total_sheet}".format(jobid=job_string,
-                                                                                         pieceid=str(i).zfill(6),
-                                                                                         cur_sheet=str(t).zfill(2),
-                                                                                         total_sheet=str
-                                                                                         (num_sheets[i - 1]).zfill(2)))
+                                                                                       pieceid=str(i).zfill(6),
+                                                                                       cur_sheet=str(t).zfill(2),
+                                                                                       total_sheet=str
+                                                                                       (num_sheets[i - 1]).zfill(2)))
         filename = path.join(out_path, "feed_" + job_string + ".txt")
         with open(filename, 'w') as fp:
             fp.write(out_str.join(sheet_strings))
