@@ -1,0 +1,4 @@
+test string for building a class.
+import jif_assembler
+t = jif_assembler.JIFBuilder(template_name='test3', piece_level=1, var_sheets=1, total_sheets=20, num_jifs=2, job_id='0010000720', account='test, me', job_name='A', job_type='Type', num_pieces=10, creation='2015-10-06 21:19:00', deadline='2015-10-07 21:19:00', proc_phase='30', end_phase='30', prod_loc='Webster', feed_data=1, exit_data=1)
+t.gen_jifs()
