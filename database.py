@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine("mssql+pymssql://sa:powerc83@CODEX/jiftest")
+engine = create_engine("mssql+pymssql://jifbuilder:apt123@IS-TRogers/jiftemplates")
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))

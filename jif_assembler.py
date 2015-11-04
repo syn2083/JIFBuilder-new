@@ -1,51 +1,16 @@
-__author__ = 'venom'
+from random import choice, randint
+from os import path
+from jiftemplate import Template
+from utilities import folder_construct
 
-from sqlalchemy import Column, Integer, String, VARCHAR
-from random import choice
-from random import randint
-from os import path, makedirs
-from database import Base
+__author__ = 'venom'
 
 """This module handles establishing the class to record a JIF template. The class creates an object which will
 attach to a database, through SQLAlchemy. Along with the database record set, it has builtin assemblers for the
 job ticket and piece manifesting, where appropriate."""
 
 
-class JIFBuilder(Base):
-    __tablename__ = 'templates'
-
-    id = Column(Integer, primary_key=True)
-    template_name = Column(String)
-    piece_level = Column(Integer)
-    var_sheets = Column(Integer)
-    total_sheets = Column(Integer)
-    num_jifs = Column(Integer)
-    job_id = Column(String)
-    account = Column(String)
-    job_name = Column(String)
-    job_type = Column(String)
-    num_pieces = Column(Integer)
-    creation = Column(VARCHAR)
-    deadline = Column(VARCHAR)
-    proc_phase = Column(VARCHAR)
-    end_phase = Column(Integer)
-    prod_loc = Column(String)
-    current_jobid = None
-    feed_data = 0
-    exit_data = 0
-
-    def id_to_int(self):
-        try:
-            return int(self.job_id)
-        except ValueError:
-            return None
-
-    def id_to_str(self, input_id):
-        try:
-            return str(input_id).zfill(len(self.job_id))
-        except:
-            return None
-
+class JIFBuilder(Template):
     def piece_builder(self, piece_id):
         plist = []
         bstr = "\n"
@@ -64,28 +29,13 @@ class JIFBuilder(Base):
 
         return [bstr.join(plist), sheet_count]
 
-    def folder_construct(self):
-        local_path = path.dirname(path.abspath(__file__))
-        template_dir = path.join(local_path, "output\\" + self.template_name)
-        outjif = path.join(template_dir, "jif_output")
-        feed_d = path.join(template_dir, "feed_data")
-        exit_d = path.join(template_dir, "exit_data")
-
-        if not path.exists(template_dir):
-            makedirs(template_dir)
-            makedirs(outjif)
-            makedirs(feed_d)
-            makedirs(exit_d)
-
-        return [outjif, feed_d, exit_d]
-
     def gen_jifs(self):
         jtype = []
         acct = []
         jname = []
         bstr = "\n"
 
-        out_jif = self.folder_construct()[0]
+        out_jif = folder_construct(self.template_name)[0]
 
         self.current_jobid = self.id_to_int()
 
@@ -135,7 +85,7 @@ class JIFBuilder(Base):
 
     def gen_feed_data(self, num_sheets=None):
         out_str = "\n"
-        out_path = self.folder_construct()[1]
+        out_path = folder_construct(self.template_name)[1]
         sheet_strings = []
         job_string = str(self.current_jobid).zfill(len(self.job_id))
 
@@ -153,7 +103,7 @@ class JIFBuilder(Base):
 
     def gen_exit_data(self):
         out_str = "\n"
-        out_path = self.folder_construct()[2]
+        out_path = folder_construct(self.template_name)[2]
         piece_strings = []
         job_string = str(self.current_jobid).zfill((len(self.job_id)))
 
