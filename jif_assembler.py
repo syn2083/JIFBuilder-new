@@ -5,9 +5,15 @@ from prog_utilities import folder_construct
 
 __author__ = 'venom'
 
-"""This module handles establishing the class to record a JIF template. The class creates an object which will
+"""This module handles utilizing a JIF Template to produce output. The class creates an object which will
 attach to a database, through SQLAlchemy. Along with the database record set, it has builtin assemblers for the
-job ticket and piece manifesting, where appropriate."""
+job ticket and piece manifesting, feed scan data, and exit scan data where appropriate. The output data will be placed
+in a local directory in the following format:
+Output
+-TemplateName
+--feed_data
+--exit_data
+--jif_output"""
 
 
 class JIFBuilder(Template):
