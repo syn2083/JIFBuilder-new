@@ -1,7 +1,7 @@
 from random import choice, randint
 from os import path
-from jiftemplate import Template
-from utilities import folder_construct
+from jiftemplater import Template
+from prog_utilities import folder_construct
 
 __author__ = 'venom'
 
